@@ -14,6 +14,6 @@ cc_test(
 cc_binary(
     name = "part1",
     srcs = ["part1.cc"],
-    data = ["//day01:input"],
+    data = [":input"],
     deps = [":solver"]
 )

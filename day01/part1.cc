@@ -6,7 +6,6 @@
 #include <vector>
 
 int main() {
-    // std::cout << "cwd: " << std::filesystem::current_path() << std::endl;
     const std::filesystem::path input{"day01/input"};
     std::ifstream ifs{input};
     std::vector<int> data;
