@@ -1,17 +1,18 @@
 
 #include "solver.hh"
 
-#include <vector>
 #include <algorithm>
 #include <utility>
+#include <vector>
 
-int find_product_for_pair_with_sum(const std::vector<int>& input, int expected_sum) {
-    for (auto first = std::begin(input); first != std::end(input); ++first) {
-        const auto test_for_expected_sum = [sum = expected_sum, one = *first](int two) {
-            return sum == (one + two);
-        };
-        const auto second = std::find_if(first + 1, std::end(input), test_for_expected_sum);
-        if (second != std::end(input)) return *first * *second;
-    }
-    return -1;
+std::vector<int> find_combination_if(std::vector<int> range, std::size_t comb_len,
+                                     std::function<bool(const std::vector<int>&)> pred)
+{
+    if (comb_len > range.size()) return std::vector<int>{};
+    std::sort(std::begin(range), std::end(range));
+    do {
+        std::vector<int> result{std::begin(range), std::begin(range) + comb_len};
+        if (pred(result)) return result;
+    } while (std::next_permutation(std::begin(range), std::end(range)));
+    return std::vector<int>{};
 }
