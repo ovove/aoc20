@@ -17,7 +17,7 @@ int main() {
             return (actual_sum == expected_sum);
         };
     };
-    const auto numbers = find_combination_if(data, 2U, test_for_sum(2020));
+    const auto numbers = find_combination_if(data, 3U, test_for_sum(2020));
     const auto answer = std::accumulate(std::begin(numbers), std::end(numbers), 1,
                                         [](int a, int b) { return a * b; });
     std::cout << answer << std::endl;
