@@ -36,10 +36,6 @@ int main() {
     for (auto h: hits) std::cout << h << " "; std::cout << std::endl;
 
     std::cout << std::accumulate(std::begin(hits), std::end(hits), 1UL,
-                                 // [](unsigned long a, unsigned long b) {
-                                 //     std::cout << a << " * " << b << " = " << (a*b) << "\n";
-                                 //     return a*b;
-                                 // })
                                  std::multiplies<std::size_t>{})
               << std::endl;
 }
