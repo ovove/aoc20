@@ -5,7 +5,7 @@
 #include <tuple>
 #include <vector>
 
-using XY = std::tuple<int,int>;
+using XY = std::tuple<unsigned, unsigned>;
 using Tile = std::vector<std::string>;
 using Map = std::vector<std::string>;
 
