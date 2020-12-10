@@ -2,7 +2,6 @@
 #include "solver.hh"
 
 #include <gtest/gtest.h>
-
 #include <iostream>
 #include <numeric>
 #include <sstream>
@@ -10,8 +9,7 @@
 
 
 namespace {
-std::string input
-{
+std::string input{
     R"(
 ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 byr:1937 iyr:2017 cid:147 hgt:183cm
@@ -26,8 +24,7 @@ hgt:179cm
 
 hcl:#cfa07d eyr:2025 pid:166559648
 iyr:2011 ecl:brn hgt:59in
-    )"
-};
+    )"};
 }
 
 

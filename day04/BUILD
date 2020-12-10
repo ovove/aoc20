@@ -18,15 +18,15 @@ cc_binary(
     deps = [":solver"]
 )
 
-# cc_test(
-#     name = "test2",
-#     srcs = ["test2.cc"],
-#     deps = [":solver", "@googletest//:gtest_main"]
-# )
+cc_test(
+    name = "test2",
+    srcs = ["test2.cc"],
+    deps = [":solver", "@googletest//:gtest_main"]
+)
 
-# cc_binary(
-#     name = "part2",
-#     srcs = ["part2.cc"],
-#     data = [":input"],
-#     deps = [":solver"]
-# )
+cc_binary(
+    name = "part2",
+    srcs = ["part2.cc"],
+    data = [":input"],
+    deps = [":solver"]
+)

@@ -14,3 +14,5 @@ std::vector<PassportData> read_passport_data(std::istream&);
 
 bool is_valid_passport(const PassportData&);
 bool is_valid_north_pole_credential(const PassportData&);
+
+bool is_strict_valid(const PassportData&);
