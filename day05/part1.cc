@@ -6,12 +6,13 @@
 #include <iostream>
 #include <iterator>
 #include <numeric>
-#include <string>
 #include <stdexcept>
+#include <string>
 #include <vector>
 
 
-int main() {
+int main()
+{
     const std::filesystem::path input{"day05/input"};
     if (not std::filesystem::exists(input)) std::runtime_error("Input not found");
     std::ifstream ifs{input};
