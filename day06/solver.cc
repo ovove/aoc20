@@ -9,7 +9,8 @@
 #include <vector>
 
 
-AllGroupCustomDeclarationForm read_all_custom_declaration_forms(std::istream& ifs) {
+AllGroupCustomDeclarationForm read_all_custom_declaration_forms(std::istream& ifs)
+{
     AllGroupCustomDeclarationForm result{};
     GroupCustomDeclarationForm group_custom_decl{};
     for (std::string line; std::getline(ifs, line);) {
