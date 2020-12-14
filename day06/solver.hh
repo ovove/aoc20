@@ -6,13 +6,15 @@
 #include <vector>
 
 
-using CustomDeclarationForm = std::set<char>;                                  // For one person
-using GroupCustomDeclarationForm = std::vector<CustomDeclarationForm>;         // Groups of persons
-using AllGroupCustomDeclarationForm = std::vector<GroupCustomDeclarationForm>; // All groups
+using DeclarationForm = std::set<char>;                            // For one person
+using GroupDeclarationForm = std::vector<DeclarationForm>;         // Groups of persons
+using AllGroupDeclarationForm = std::vector<GroupDeclarationForm>; // All groups
+using AnalyzedDeclarationForm = std::vector<DeclarationForm>;      // Collected
 
-using CollectedGroupCustomDeclarationForm = std::vector<CustomDeclarationForm>; // Collected
+AllGroupDeclarationForm read_all_custom_declaration_forms(std::istream&);
 
-AllGroupCustomDeclarationForm read_all_custom_declaration_forms(std::istream&);
+AnalyzedDeclarationForm
+analyze_all_groups_with_any_person_answered_yes(const AllGroupDeclarationForm&);
 
-CollectedGroupCustomDeclarationForm
-collect_all_groups_declararion_forms(const AllGroupCustomDeclarationForm&);
+AnalyzedDeclarationForm
+analyze_all_groups_with_all_person_answered_yes(const AllGroupDeclarationForm&);
