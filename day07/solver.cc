@@ -24,12 +24,13 @@ BagRules read_bag_rules(std::istream& iss)
             if (match[3].matched) {
                 BagContent bag_content{};
                 const std::string& content{match[3].str()};
-                static std::regex re2{R"(\d+ (\S+ \S+) bags?(, )?)"};
+                static std::regex re2{R"((\d+) (\S+ \S+) bags?(, )?)"};
                 for (auto it = std::sregex_iterator{std::begin(content), std::end(content), re2};
                      it != std::sregex_iterator{}; ++it) {
                     const auto match{*it};
-                    const std::string& inner_bag{match[1].str()};
-                    result[bag_name].push_back(inner_bag);
+                    const unsigned bag_count{static_cast<unsigned>(std::stoi(match[1].str()))};
+                    const std::string& inner_bag{match[2].str()};
+                    result[bag_name].push_back(std::tuple{inner_bag, bag_count});
                 }
             }
         }
@@ -38,7 +39,7 @@ BagRules read_bag_rules(std::istream& iss)
 }
 
 
-std::optional<BagCount> bag_containing_bag(const BagRules& bag_rules, const BagName& outer_bag,
+std::optional<BagNestingLevel> bag_containing_bag(const BagRules& bag_rules, const BagName& outer_bag,
                                            const BagName& inner_bag)
 {
     if (bag_rules.count(outer_bag) == 0) return std::nullopt;
@@ -50,7 +51,7 @@ std::optional<BagCount> bag_containing_bag(const BagRules& bag_rules, const BagN
     while (to_be_processed.size() > 0) {
         const auto& bags{to_be_processed.front()};
         ++distance;
-        for (const auto& bag: bags) {
+        for (const auto& [bag,cnt]: bags) {
             if (bag == inner_bag) return distance;
             if (processed_bags.count(bag) != 0) continue;
             processed_bags.insert(bag);
