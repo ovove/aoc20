@@ -18,7 +18,7 @@ bool find_combination_if(const std::vector<int>& range, const std::size_t comb_l
     }
     return false;
 }
-}
+} // namespace
 
 
 std::vector<int> find_combination_if(const std::vector<int>& range, std::size_t comb_len,

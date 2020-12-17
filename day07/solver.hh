@@ -19,8 +19,8 @@ using BagNestingLevel = unsigned; // Number of contained bags
 
 BagRules read_bag_rules(std::istream&);
 
-std::optional<BagNestingLevel>
-bag_containing_bag(const BagRules&, const BagName& outer_bag, const BagName& inner_bag);
+std::optional<BagNestingLevel> bag_containing_bag(const BagRules&, const BagName& outer_bag,
+                                                  const BagName& inner_bag);
 
 
 using InnerBagCount = unsigned;

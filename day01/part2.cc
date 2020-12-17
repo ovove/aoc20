@@ -1,16 +1,19 @@
 
 #include "solver.hh"
+
 #include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <numeric>
 #include <vector>
 
-int main() {
+int main()
+{
     const std::filesystem::path input{"day01/input"};
     std::ifstream ifs{input};
     std::vector<int> data;
-    for (int i = 0; ifs >> i;) data.push_back(i);
+    for (int i = 0; ifs >> i;)
+        data.push_back(i);
     const auto test_for_sum = [](int expected_sum) {
         return [expected_sum](const std::vector<int>& selection) {
             const auto actual_sum = std::accumulate(std::begin(selection), std::end(selection), 0);

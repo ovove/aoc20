@@ -10,7 +10,8 @@
 #include <vector>
 
 
-int main() {
+int main()
+{
     const std::filesystem::path input{"day03/input"};
     std::ifstream ifs{input};
     const auto tile{read_tile(ifs)};

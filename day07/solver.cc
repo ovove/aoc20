@@ -39,8 +39,8 @@ BagRules read_bag_rules(std::istream& iss)
 }
 
 
-std::optional<BagNestingLevel> bag_containing_bag(const BagRules& bag_rules, const BagName& outer_bag,
-                                           const BagName& inner_bag)
+std::optional<BagNestingLevel>
+bag_containing_bag(const BagRules& bag_rules, const BagName& outer_bag, const BagName& inner_bag)
 {
     if (bag_rules.count(outer_bag) == 0) return std::nullopt;
     // Do a network graph breadth first search
@@ -63,7 +63,8 @@ std::optional<BagNestingLevel> bag_containing_bag(const BagRules& bag_rules, con
 }
 
 
-InnerBagCount count_inner_bags(const BagRules& bag_rules, const BagName& outer_bag) {
+InnerBagCount count_inner_bags(const BagRules& bag_rules, const BagName& outer_bag)
+{
     InnerBagCount result{0};
     const auto& inner_bags{bag_rules.at(outer_bag)};
     for (const auto& [bag, cnt]: inner_bags) {

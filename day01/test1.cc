@@ -1,10 +1,12 @@
 
 #include "solver.hh"
+
 #include <gtest/gtest.h>
 #include <numeric>
 #include <vector>
 
-TEST(day01part1, test1) {
+TEST(day01part1, test1)
+{
     const std::vector<int> data{1721, 979, 366, 299, 675, 1456};
     const auto test_for_sum = [](int expected_sum) {
         return [expected_sum](const std::vector<int>& selection) {

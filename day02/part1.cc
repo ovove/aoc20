@@ -10,7 +10,8 @@
 #include <vector>
 
 
-int main() {
+int main()
+{
     const std::filesystem::path input{"day02/input"};
     std::ifstream ifs{input};
     std::vector<std::string> pwds{};

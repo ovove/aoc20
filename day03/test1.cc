@@ -1,8 +1,8 @@
 
 #include "solver.hh"
 
-#include <gtest/gtest.h>
 #include <algorithm>
+#include <gtest/gtest.h>
 #include <iterator>
 #include <sstream>
 #include <string>
@@ -24,7 +24,8 @@ std::string input{R"(
 )"};
 }
 
-TEST(Day03, Part01) {
+TEST(Day03, Part01)
+{
     std::istringstream iss{input};
     const auto tile = read_tile(iss);
     Map map{tile};

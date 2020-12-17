@@ -1,16 +1,14 @@
 
 #include "solver.hh"
-#include <gtest/gtest.h>
+
 #include <algorithm>
+#include <gtest/gtest.h>
 #include <string>
 #include <vector>
 
-TEST(Day02, Part2) {
-    std::vector<std::string> pwds{
-        "1-3 a: abcde",
-        "1-3 b: cdefg",
-        "2-9 c: ccccccccc"
-    };
+TEST(Day02, Part2)
+{
+    std::vector<std::string> pwds{"1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"};
     const auto is_pwd_valid = [](const std::string& pwd) {
         return toboggan_validate_password_policy_record(parse_password_policy_record(pwd));
     };
