@@ -16,20 +16,20 @@ BagRules read_bag_rules(std::istream& iss)
 {
     BagRules result{};
     static std::regex re{
-        R"(^(\S+ \S+) bags contain ((\d+ (\S+ \S+) bags?(, \d+ (\S+ \S+) bags?)*)|(no other bags))\.$)"};
+        R"(^(\S+ \S+) bags contain (?:(\d+ \S+ \S+ bags?(?:, \d+ \S+ \S+ bags?)*)|(?:no other bags))\.$)"};
     for (std::string line; std::getline(iss, line);) {
         if (std::smatch match; std::regex_match(line, match, re)) {
             const BagName bag_name{match[1].str()};
             result[bag_name] = BagContent{};
-            if (match[3].matched) {
+            if (match[2].matched) {
                 BagContent bag_content{};
-                const std::string& content{match[3].str()};
-                static std::regex re2{R"((\d+) (\S+ \S+) bags?(, )?)"};
+                const std::string& content{match[2].str()};
+                static std::regex re2{R"((\d+) (\S+ \S+) bags?(?:, )?)"};
                 for (auto it = std::sregex_iterator{std::begin(content), std::end(content), re2};
                      it != std::sregex_iterator{}; ++it) {
-                    const auto match{*it};
-                    const unsigned bag_count{static_cast<unsigned>(std::stoi(match[1].str()))};
-                    const std::string& inner_bag{match[2].str()};
+                    const auto match2{*it};
+                    const unsigned bag_count{static_cast<unsigned>(std::stoi(match2[1].str()))};
+                    const std::string& inner_bag{match2[2].str()};
                     result[bag_name].push_back(std::tuple{inner_bag, bag_count});
                 }
             }
