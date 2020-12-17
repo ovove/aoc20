@@ -51,7 +51,7 @@ std::optional<BagNestingLevel> bag_containing_bag(const BagRules& bag_rules, con
     while (to_be_processed.size() > 0) {
         const auto& bags{to_be_processed.front()};
         ++distance;
-        for (const auto& [bag,cnt]: bags) {
+        for (const auto& [bag, cnt]: bags) {
             if (bag == inner_bag) return distance;
             if (processed_bags.count(bag) != 0) continue;
             processed_bags.insert(bag);
@@ -60,4 +60,14 @@ std::optional<BagNestingLevel> bag_containing_bag(const BagRules& bag_rules, con
         to_be_processed.pop_front();
     }
     return std::nullopt;
+}
+
+
+InnerBagCount count_inner_bags(const BagRules& bag_rules, const BagName& outer_bag) {
+    InnerBagCount result{0};
+    const auto& inner_bags{bag_rules.at(outer_bag)};
+    for (const auto& [bag, cnt]: inner_bags) {
+        result += cnt + cnt * count_inner_bags(bag_rules, bag);
+    }
+    return result;
 }
