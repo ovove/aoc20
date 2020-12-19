@@ -48,6 +48,11 @@ Address alu(Address ip, OpCodes op, int arg, int& acc)
     }
     }
 }
+
+class ip_out_of_range : public std::out_of_range {
+public:
+    ip_out_of_range(const char* msg) : std::out_of_range(msg) {}
+};
 }
 
 std::optional<int> get_accumulator_when_detect_infinite_loop(const Tape& tape) {
@@ -59,6 +64,41 @@ std::optional<int> get_accumulator_when_detect_infinite_loop(const Tape& tape) {
         const auto next_ip{alu(ip, op, arg, acc)};
         if (already_seen_instructions.count(next_ip) != 0) return acc;
         ip = next_ip;
+        if ((ip < 1) or (tape.size() < ip)) throw ip_out_of_range("Illegal IP");
     }
     return std::nullopt;
 }
+
+int get_accumulator_when_run_until_last_op(const Tape& tape) {
+    int acc{0};
+    for (Address ip{1}; ip < tape.size();) {
+        const auto [op, arg] = tape.at(ip);
+        const auto next_ip{alu(ip, op, arg, acc)};
+        ip = next_ip;
+    }
+    return acc;
+}
+
+Tape debug_code(Tape tape) {
+    for (Address ip = 1; ip < tape.size(); ++ip) {
+        if (const auto [op, arg] = tape[ip]; op == OpCodes::acc)
+            continue;
+        else if (op == OpCodes::nop)
+            tape[ip] = Instruction{OpCodes::jmp, arg};
+        else
+            tape[ip] = Instruction{OpCodes::nop, arg};
+        try {
+            const auto acc{get_accumulator_when_detect_infinite_loop(tape)};
+            if (not acc) break;
+        }
+        catch (ip_out_of_range&) {
+            // pass
+        }
+        if (const auto [op, arg] = tape[ip]; op == OpCodes::nop)
+            tape[ip] = Instruction{OpCodes::jmp, arg};
+        else
+            tape[ip] = Instruction{OpCodes::nop, arg};
+    }
+    return tape;
+}
+
