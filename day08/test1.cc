@@ -21,7 +21,7 @@ acc +6
 )"};
     std::istringstream iss{input};
     const auto tape{read_instructions(iss)};
-    const auto result{detect_infinite_loop(tape)};
-    EXPECT_TRUE(result);
-    EXPECT_EQ(*result, 5);
+    const auto acc{get_accumulator_when_detect_infinite_loop(tape)};
+    EXPECT_TRUE(acc);
+    EXPECT_EQ(*acc, 5);
 }

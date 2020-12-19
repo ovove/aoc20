@@ -35,23 +35,29 @@ Tape read_instructions(std::istream& is) {
 namespace {
 using Address = unsigned;
 
-Address alu(Address ip, OpCodes op, int arg)
+Address alu(Address ip, OpCodes op, int arg, int& acc)
 {
     switch (op) {
-    case OpCodes::nop: return ip + 1;
-    case OpCodes::jmp: return ip + arg;
-    case OpCodes::acc: return ip + 1;
+    case OpCodes::nop:
+        return ip + 1;
+    case OpCodes::jmp:
+        return ip + arg;
+    case OpCodes::acc: {
+        acc += arg;
+        return ip + 1;
+    }
     }
 }
 }
 
-std::optional<unsigned> detect_infinite_loop(const Tape& tape) {
+std::optional<int> get_accumulator_when_detect_infinite_loop(const Tape& tape) {
     std::set<Address> already_seen_instructions{};
+    int acc{0};
     for (Address ip{1}; ip < tape.size();) {
         already_seen_instructions.insert(ip);
         const auto [op, arg] = tape.at(ip);
-        const auto next_ip{alu(ip, op, arg)};
-        if (already_seen_instructions.count(next_ip) != 0) return ip;
+        const auto next_ip{alu(ip, op, arg, acc)};
+        if (already_seen_instructions.count(next_ip) != 0) return acc;
         ip = next_ip;
     }
     return std::nullopt;

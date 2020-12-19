@@ -13,4 +13,4 @@ using Tape = std::vector<Instruction>;
 
 Tape read_instructions(std::istream&);
 
-std::optional<unsigned> detect_infinite_loop(const Tape&);
+std::optional<int> get_accumulator_when_detect_infinite_loop(const Tape&);
