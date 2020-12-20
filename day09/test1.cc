@@ -10,15 +10,12 @@
 TEST(Day8, Test1) {
     const std::string input{R"(
 35
-
 20
 15
 25
 47
 40
-
 62
-
 55
 65
 95
