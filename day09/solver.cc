@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <istream>
 #include <iterator>
+#include <numeric>
 #include <optional>
 #include <stdexcept>
 #include <vector>
@@ -49,4 +50,15 @@ XMASValue find_incorrect_code(const XMASCode& xmas, std::size_t premble_length)
         if (not validate_code(premble_beg, premble_end, *it)) return *it;
     }
     return std::nullopt;
+}
+
+
+XMASCode find_xmas_subset(const XMASCode& xmas, XMASCode::value_type target) {
+    for (auto it1{std::begin(xmas)}; it1 != std::end(xmas); ++it1) {
+        for (auto it2{iter_advance(it1, 1)}; it2 != std::end(xmas); ++it2) {
+            const auto sum{std::accumulate(it1, it2, 0UL)};
+            if (sum == target) return XMASCode(it1, it2);
+        }
+    }
+    return XMASCode{};
 }
