@@ -7,7 +7,7 @@
 #include <string>
 
 
-TEST(Day8, Test1) {
+TEST(Day9, Test1) {
     const std::string input{R"(
 35
 20
