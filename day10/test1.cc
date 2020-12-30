@@ -22,8 +22,7 @@ TEST(Day10, Test1a) {
 4
 )"};
     std::istringstream iss{input};
-    const auto uoa{read_adapters(iss)};
-    const auto adapters{arrange_adapters(uoa)};
+    const auto adapters{read_adapters(iss)};
     const auto ratings{rate_adapters(adapters)};
     EXPECT_EQ(std::get<0>(ratings), 7);
     EXPECT_EQ(std::get<1>(ratings), 0);
@@ -67,11 +66,11 @@ TEST(Day10, Test1b) {
 10
 3)"};
     std::istringstream iss{input};
-    const auto uoa{read_adapters(iss)};
-    const auto adapters{arrange_adapters(uoa)};
+    const auto adapters{read_adapters(iss)};
     const auto ratings{rate_adapters(adapters)};
     EXPECT_EQ(std::get<0>(ratings), 22);
     EXPECT_EQ(std::get<1>(ratings),  0);
     EXPECT_EQ(std::get<2>(ratings), 10);
+    const auto result{std::get<0>(ratings) * std::get<2>(ratings)};
     EXPECT_EQ(result, 220);
 }

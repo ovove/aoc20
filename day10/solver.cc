@@ -14,19 +14,14 @@
 
 JoltData read_adapters(std::istream& is) {
     JoltData result{};
-    using IStreamIterType = std::istream_iterator<JoltData::value_type>;
-    std::copy(IStreamIterType{is}, IStreamIterType{}, std::back_inserter(result));
-    return result;
-}
-
-
-JoltData arrange_adapters(const JoltData& jd) {
-    const auto nr_of_adapters{jd.size()};
-    JoltData result(nr_of_adapters + 2); // leading 0, and trailing +3
-    std::copy(std::begin(jd), std::end(jd), std::begin(result) + 1);
-    std::sort(std::begin(result) + 1, std::begin(result) + 1 + nr_of_adapters);
-    result[0] = 0;
-    result[nr_of_adapters + 1] = result[nr_of_adapters] + 3;
+    result.push_back(0);
+    JoltData::value_type max{0};
+    for (JoltData::value_type val; is >> val;) {
+        max = std::max(max, val);
+        result.push_back(val);
+    }
+    result.push_back(max + 3);
+    std::sort(std::begin(result), std::end(result));
     return result;
 }
 
@@ -47,3 +42,5 @@ JoltRatings rate_adapters(const JoltData& jd) {
     std::adjacent_find(std::begin(jd), std::end(jd), acc_ratings);
     return result;
 }
+
+
