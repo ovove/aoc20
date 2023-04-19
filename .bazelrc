@@ -1,3 +1,4 @@
-build --cxxopt=-std=c++2a
+build --apple_compiler=/opt/local/bin/clang++
+build --cxxopt=-std=c++20
 build --cxxopt=-Wall
 build --cxxopt=-Wextra
